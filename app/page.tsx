@@ -1,6 +1,8 @@
+"use client"
+
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Sidebar } from '@/components/sidebar'
 import { DashboardTab } from '@/components/dashboard-tab'
 import { CandidatesTab } from '@/components/candidates-tab'
