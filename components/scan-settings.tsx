@@ -136,7 +136,8 @@ export function ScanSettings() {
     setScanning(true)
     setScanResult(null)
     try {
-      const res = await fetch('/api/scan', {
+      const scanApiUrl = process.env.NEXT_PUBLIC_SCAN_API_URL || '/api/scan'
+      const res = await fetch(`${scanApiUrl}/api/scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
