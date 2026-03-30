@@ -1,3 +1,5 @@
+export const maxDuration = 300
+
 import { NextRequest, NextResponse } from 'next/server'
 import { spawn } from 'child_process'
 
@@ -71,18 +73,37 @@ export async function POST(req: NextRequest) {
   return new Promise<NextResponse>((resolve) => {
     const proc = spawn(VENV_PYTHON, args, {
       cwd: '/Users/mr.k/Projects/bk-influencer-finder',
-      timeout: 120000,
+      timeout: 300000,
     })
 
     let output = ''
     proc.stdout.on('data', (d: Buffer) => { output += d.toString() })
     proc.stderr.on('data', (d: Buffer) => { output += d.toString() })
 
-    proc.on('close', (code: number) => {
+    proc.on('close', async (code: number) => {
+      if (code === 0) {
+        // スキャン完了後にスコアリングとレポート送信
+        const { spawn: spawn2 } = require('child_process')
+        const scorer = spawn2(VENV_PYTHON, [
+          '/Users/mr.k/Projects/bk-influencer-finder/scorer.py'
+        ], { cwd: '/Users/mr.k/Projects/bk-influencer-finder' })
+        await new Promise((r) => scorer.on('close', r))
+        
+        const reporter = spawn2(VENV_PYTHON, [
+          '/Users/mr.k/Projects/bk-influencer-finder/dm_generator.py'
+        ], { cwd: '/Users/mr.k/Projects/bk-influencer-finder' })
+        await new Promise((r) => reporter.on('close', r))
+        
+        const report = spawn2(VENV_PYTHON, [
+          '/Users/mr.k/Projects/bk-influencer-finder/reporter.py'
+        ], { cwd: '/Users/mr.k/Projects/bk-influencer-finder' })
+        await new Promise((r) => report.on('close', r))
+      }
       resolve(NextResponse.json({
         success: code === 0,
         output: output.slice(-500),
         code,
+        message: code === 0 ? 'スキャン完了！Telegramにレポートを送信しました' : 'スキャン失敗'
       }))
     })
 
@@ -90,6 +111,6 @@ export async function POST(req: NextRequest) {
     setTimeout(() => {
       proc.kill()
       resolve(NextResponse.json({ success: false, message: 'タイムアウト' }, { status: 408 }))
-    }, 110000)
+    }, 280000)
   })
 }
