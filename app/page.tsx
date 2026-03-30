@@ -12,7 +12,7 @@ import { Zap, Sun, Moon, Globe } from 'lucide-react'
 import { useTheme } from '@/lib/theme-context'
 import { useLanguage } from '@/lib/language-context'
 
-export type TabType = 'dashboard' | 'candidates' | 'analytics' | 'settings'
+export type TabType = 'dashboard' | 'candidates' | 'analytics' | 'kol-research' | 'settings'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard')
@@ -149,6 +149,7 @@ export default function Home() {
           {activeTab === 'dashboard' && <DashboardTab />}
           {activeTab === 'candidates' && <CandidatesTab />}
           {activeTab === 'analytics' && <AnalyticsTab />}
+          {activeTab === 'kol-research' && <ScanSettings />}
           {activeTab === 'settings' && <ScanSettings />}
         </main>
       </div>

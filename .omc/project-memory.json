@@ -142,8 +142,14 @@
   "hotPaths": [
     {
       "path": "app/page.tsx",
-      "accessCount": 9,
-      "lastAccessed": 1774864204741,
+      "accessCount": 12,
+      "lastAccessed": 1774865883417,
+      "type": "file"
+    },
+    {
+      "path": "components/sidebar.tsx",
+      "accessCount": 12,
+      "lastAccessed": 1774865932159,
       "type": "file"
     },
     {
@@ -156,12 +162,6 @@
       "path": "app/layout.tsx",
       "accessCount": 7,
       "lastAccessed": 1774863829218,
-      "type": "file"
-    },
-    {
-      "path": "components/sidebar.tsx",
-      "accessCount": 7,
-      "lastAccessed": 1774864224453,
       "type": "file"
     },
     {
@@ -186,6 +186,12 @@
       "path": "components/analytics-tab.tsx",
       "accessCount": 5,
       "lastAccessed": 1774863833089,
+      "type": "file"
+    },
+    {
+      "path": "lib/language-context.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1774865889365,
       "type": "file"
     },
     {
@@ -288,12 +294,6 @@
       "path": "lib/theme-context.tsx",
       "accessCount": 1,
       "lastAccessed": 1774863837099,
-      "type": "file"
-    },
-    {
-      "path": "lib/language-context.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1774863837357,
       "type": "file"
     },
     {

@@ -1,6 +1,6 @@
 'use client'
 
-import { LayoutDashboard, Users, BarChart3, Settings } from 'lucide-react'
+import { LayoutDashboard, Users, BarChart3, ScanSearch, Settings } from 'lucide-react'
 import type { TabType } from '@/app/page'
 import { useTheme } from '@/lib/theme-context'
 import { useLanguage } from '@/lib/language-context'
@@ -21,14 +21,16 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     textPrimary: isDark ? '#F0F2FF' : '#1A1D29',
     textMuted: isDark ? '#8892B0' : '#8892B0',
     accentBlue: '#6378FF',
+    accentCyan: isDark ? '#00E5FF' : '#00C4E5',
     tooltipBg: isDark ? '#161923' : '#FFFFFF',
     tooltipBorder: isDark ? 'rgba(99,120,255,0.20)' : 'rgba(99,120,255,0.25)',
   }
 
   const navItems = [
-    { id: 'dashboard' as TabType, labelKey: 'nav.dashboard', icon: LayoutDashboard },
-    { id: 'candidates' as TabType, labelKey: 'nav.candidates', icon: Users },
-    { id: 'analytics' as TabType, labelKey: 'nav.analytics', icon: BarChart3 },
+    { id: 'dashboard' as TabType, labelKey: 'nav.dashboard', icon: LayoutDashboard, cyan: false },
+    { id: 'candidates' as TabType, labelKey: 'nav.candidates', icon: Users, cyan: false },
+    { id: 'analytics' as TabType, labelKey: 'nav.analytics', icon: BarChart3, cyan: false },
+    { id: 'kol-research' as TabType, labelKey: 'nav.kolResearch', icon: ScanSearch, cyan: true },
   ]
 
   return (
@@ -59,26 +61,40 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.id
+          const accent = item.cyan ? colors.accentCyan : colors.accentBlue
+          const activeBg = item.cyan
+            ? (isDark ? 'rgba(0,229,255,0.10)' : 'rgba(0,196,229,0.12)')
+            : (isDark ? 'rgba(99,120,255,0.12)' : 'rgba(99,120,255,0.15)')
           return (
             <div key={item.id} className="group relative w-full">
               <button
                 onClick={() => onTabChange(item.id)}
                 className="relative flex h-10 w-full items-center justify-center rounded transition-all duration-150"
                 style={{
-                  background: isActive ? (isDark ? 'rgba(99,120,255,0.12)' : 'rgba(99,120,255,0.15)') : 'transparent',
-                  color: isActive ? colors.accentBlue : colors.textMuted,
+                  background: isActive ? activeBg : 'transparent',
+                  color: isActive ? accent : colors.textMuted,
+                  ...(item.cyan && isActive ? { boxShadow: isDark ? '0 0 8px rgba(0,229,255,0.15)' : 'none' } : {}),
                 }}
                 onMouseEnter={(e) => {
-                  if (!isActive) (e.currentTarget as HTMLButtonElement).style.color = colors.textPrimary
+                  if (!isActive) {
+                    (e.currentTarget as HTMLButtonElement).style.color = item.cyan ? accent : colors.textPrimary
+                    if (item.cyan) (e.currentTarget as HTMLButtonElement).style.boxShadow = isDark ? '0 0 6px rgba(0,229,255,0.2)' : 'none'
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  if (!isActive) (e.currentTarget as HTMLButtonElement).style.color = colors.textMuted
+                  if (!isActive) {
+                    (e.currentTarget as HTMLButtonElement).style.color = colors.textMuted
+                    (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none'
+                  }
                 }}
               >
                 {isActive && (
                   <span
                     className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r"
-                    style={{ background: colors.accentBlue, boxShadow: '0 0 6px rgba(99,120,255,0.6)' }}
+                    style={{
+                      background: accent,
+                      boxShadow: item.cyan ? '0 0 6px rgba(0,229,255,0.7)' : '0 0 6px rgba(99,120,255,0.6)',
+                    }}
                   />
                 )}
                 <Icon size={17} />
@@ -88,8 +104,8 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
                 className="pointer-events-none absolute left-[52px] top-1/2 z-[100] -translate-y-1/2 whitespace-nowrap rounded px-2.5 py-1.5 text-xs font-medium opacity-0 transition-opacity duration-150 group-hover:opacity-100"
                 style={{
                   background: colors.tooltipBg,
-                  color: colors.textPrimary,
-                  border: `1px solid ${colors.tooltipBorder}`,
+                  color: item.cyan ? accent : colors.textPrimary,
+                  border: `1px solid ${item.cyan ? (isDark ? 'rgba(0,229,255,0.25)' : 'rgba(0,196,229,0.3)') : colors.tooltipBorder}`,
                   fontFamily: 'var(--font-sans-var)',
                   boxShadow: isDark ? '0 4px 16px rgba(0,0,0,0.4)' : '0 4px 16px rgba(0,0,0,0.1)',
                 }}

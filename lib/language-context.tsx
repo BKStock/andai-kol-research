@@ -18,6 +18,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.dashboard': 'ダッシュボード',
     'nav.candidates': '候補者一覧',
     'nav.analytics': 'アナリティクス',
+    'nav.kolResearch': 'KOLリサーチ',
     'nav.settings': '設定',
     
     // Header
@@ -121,6 +122,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.dashboard': 'Dashboard',
     'nav.candidates': 'Candidates',
     'nav.analytics': 'Analytics',
+    'nav.kolResearch': 'KOL Research',
     'nav.settings': 'Settings',
     
     // Header
