@@ -141,57 +141,63 @@
   },
   "hotPaths": [
     {
+      "path": "app/page.tsx",
+      "accessCount": 9,
+      "lastAccessed": 1774864204741,
+      "type": "file"
+    },
+    {
       "path": "app/globals.css",
-      "accessCount": 7,
-      "lastAccessed": 1774804411314,
+      "accessCount": 8,
+      "lastAccessed": 1774863829375,
       "type": "file"
     },
     {
       "path": "app/layout.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1774804393199,
-      "type": "file"
-    },
-    {
-      "path": "lib/data.ts",
-      "accessCount": 5,
-      "lastAccessed": 1774804102252,
-      "type": "file"
-    },
-    {
-      "path": "app/page.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774804020435,
+      "accessCount": 7,
+      "lastAccessed": 1774863829218,
       "type": "file"
     },
     {
       "path": "components/sidebar.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774804037254,
+      "accessCount": 7,
+      "lastAccessed": 1774864224453,
+      "type": "file"
+    },
+    {
+      "path": "lib/data.ts",
+      "accessCount": 6,
+      "lastAccessed": 1774863837441,
       "type": "file"
     },
     {
       "path": "components/dashboard-tab.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774804168489,
-      "type": "file"
-    },
-    {
-      "path": "components/analytics-tab.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774804223478,
+      "accessCount": 5,
+      "lastAccessed": 1774863832513,
       "type": "file"
     },
     {
       "path": "components/candidates-tab.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1774804269106,
+      "accessCount": 5,
+      "lastAccessed": 1774863832705,
+      "type": "file"
+    },
+    {
+      "path": "components/analytics-tab.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1774863833089,
       "type": "file"
     },
     {
       "path": "components/candidate-drawer.tsx",
       "accessCount": 4,
       "lastAccessed": 1774804305566,
+      "type": "file"
+    },
+    {
+      "path": "app/api/scan/route.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774864244815,
       "type": "file"
     },
     {
@@ -208,8 +214,14 @@
     },
     {
       "path": "package.json",
-      "accessCount": 1,
-      "lastAccessed": 1774803513779,
+      "accessCount": 2,
+      "lastAccessed": 1774863828673,
+      "type": "file"
+    },
+    {
+      "path": "lib/utils.ts",
+      "accessCount": 2,
+      "lastAccessed": 1774863837608,
       "type": "file"
     },
     {
@@ -243,12 +255,6 @@
       "type": "file"
     },
     {
-      "path": "lib/utils.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774803521932,
-      "type": "file"
-    },
-    {
       "path": "components/theme-provider.tsx",
       "accessCount": 1,
       "lastAccessed": 1774803524852,
@@ -270,6 +276,30 @@
       "path": "postcss.config.mjs",
       "accessCount": 1,
       "lastAccessed": 1774804499300,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1774863826191,
+      "type": "directory"
+    },
+    {
+      "path": "lib/theme-context.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774863837099,
+      "type": "file"
+    },
+    {
+      "path": "lib/language-context.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774863837357,
+      "type": "file"
+    },
+    {
+      "path": "components/scan-settings.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774864178457,
       "type": "file"
     }
   ],

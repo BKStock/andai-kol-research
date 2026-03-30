@@ -7,11 +7,12 @@ import { Sidebar } from '@/components/sidebar'
 import { DashboardTab } from '@/components/dashboard-tab'
 import { CandidatesTab } from '@/components/candidates-tab'
 import { AnalyticsTab } from '@/components/analytics-tab'
+import { ScanSettings } from '@/components/scan-settings'
 import { Zap, Sun, Moon, Globe } from 'lucide-react'
 import { useTheme } from '@/lib/theme-context'
 import { useLanguage } from '@/lib/language-context'
 
-export type TabType = 'dashboard' | 'candidates' | 'analytics'
+export type TabType = 'dashboard' | 'candidates' | 'analytics' | 'settings'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard')
@@ -148,6 +149,7 @@ export default function Home() {
           {activeTab === 'dashboard' && <DashboardTab />}
           {activeTab === 'candidates' && <CandidatesTab />}
           {activeTab === 'analytics' && <AnalyticsTab />}
+          {activeTab === 'settings' && <ScanSettings />}
         </main>
       </div>
     </div>

@@ -1,28 +1,91 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { spawn } from 'child_process'
 
 const VENV_PYTHON = '/Users/mr.k/Projects/and-ai-brain/venv/bin/python3'
 const FINDER_SCRIPT = '/Users/mr.k/Projects/bk-influencer-finder/finder.py'
 
-export async function POST() {
-  return new Promise((resolve) => {
-    const proc = spawn(VENV_PYTHON, [FINDER_SCRIPT, '--limit', '20'], {
+interface ScanBody {
+  keywords?: string[]
+  followerMin?: number
+  followerMax?: number
+  language?: string
+  limit?: number
+  minEngagement?: number
+  postFrequency?: number
+  lastPostDays?: number
+  unmonetizedOnly?: boolean
+  genres?: string[]
+  dmTone?: string
+  dmLanguage?: string
+  topDisplay?: number
+  scoreWeights?: {
+    engagement?: number
+    growth?: number
+    frequency?: number
+  }
+}
+
+export async function POST(req: NextRequest) {
+  let body: ScanBody = {}
+  try {
+    body = await req.json()
+  } catch {
+    // bodyなし → デフォルト値で実行
+  }
+
+  const {
+    keywords = [],
+    followerMin = 1000,
+    followerMax = 50000,
+    language = 'ja',
+    limit = 20,
+    minEngagement = 3.0,
+    postFrequency = 2,
+    lastPostDays = 30,
+    unmonetizedOnly = false,
+    genres = [],
+  } = body
+
+  // finder.py に渡す引数を組み立て
+  const args: string[] = [
+    FINDER_SCRIPT,
+    '--limit', String(limit),
+    '--follower-min', String(followerMin),
+    '--follower-max', String(followerMax),
+    '--language', language,
+    '--min-engagement', String(minEngagement),
+    '--post-frequency', String(postFrequency),
+    '--last-post-days', String(lastPostDays),
+  ]
+
+  if (keywords.length > 0) {
+    args.push('--keywords', keywords.join(','))
+  }
+  if (genres.length > 0) {
+    args.push('--genres', genres.join(','))
+  }
+  if (unmonetizedOnly) {
+    args.push('--unmonetized-only')
+  }
+
+  return new Promise<NextResponse>((resolve) => {
+    const proc = spawn(VENV_PYTHON, args, {
       cwd: '/Users/mr.k/Projects/bk-influencer-finder',
-      timeout: 120000
+      timeout: 120000,
     })
-    
+
     let output = ''
     proc.stdout.on('data', (d: Buffer) => { output += d.toString() })
     proc.stderr.on('data', (d: Buffer) => { output += d.toString() })
-    
+
     proc.on('close', (code: number) => {
-      resolve(NextResponse.json({ 
-        success: code === 0, 
+      resolve(NextResponse.json({
+        success: code === 0,
         output: output.slice(-500),
-        code 
+        code,
       }))
     })
-    
+
     // タイムアウト
     setTimeout(() => {
       proc.kill()

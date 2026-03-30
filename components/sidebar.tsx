@@ -109,11 +109,25 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       <div className="mb-3 w-full px-2">
         <div className="group relative w-full">
           <button
-            className="flex h-10 w-full items-center justify-center rounded transition-colors duration-150"
-            style={{ color: colors.textMuted }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = colors.textPrimary)}
-            onMouseLeave={(e) => (e.currentTarget.style.color = colors.textMuted)}
+            onClick={() => onTabChange('settings')}
+            className="relative flex h-10 w-full items-center justify-center rounded transition-all duration-150"
+            style={{
+              background: activeTab === 'settings' ? (isDark ? 'rgba(99,120,255,0.12)' : 'rgba(99,120,255,0.15)') : 'transparent',
+              color: activeTab === 'settings' ? colors.accentBlue : colors.textMuted,
+            }}
+            onMouseEnter={(e) => {
+              if (activeTab !== 'settings') (e.currentTarget as HTMLButtonElement).style.color = colors.textPrimary
+            }}
+            onMouseLeave={(e) => {
+              if (activeTab !== 'settings') (e.currentTarget as HTMLButtonElement).style.color = colors.textMuted
+            }}
           >
+            {activeTab === 'settings' && (
+              <span
+                className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r"
+                style={{ background: colors.accentBlue, boxShadow: '0 0 6px rgba(99,120,255,0.6)' }}
+              />
+            )}
             <Settings size={16} />
           </button>
           <div
